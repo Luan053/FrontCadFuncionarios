@@ -22,8 +22,10 @@ import {
   FormMessage,
 } from "../ui/form";
 
+import axios from "axios";
+
 const formSchema = z.object({
-  email: z.string().email("Insira um E-mail válido"),
+  username: z.string().min(4, "Insira um usuario válido"),
   password: z.string().min(6, "Senha muito curta"),
 });
 
@@ -31,12 +33,25 @@ export const LoginForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
   });
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async () => {
+    try {
+      const formData = {
+        username: form.getValues("username"),
+        password: form.getValues("password"),
+      };
+
+      const res = await axios.post(
+        "https://localhost:7053/api/v1/auth",
+        formData
+      );
+      console.log("Token JWT:", res.data);
+    } catch (error) {
+      console.error("Erro:", error);
+    }
   };
 
   return (
@@ -55,17 +70,12 @@ export const LoginForm = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <FormField
                 control={form.control}
-                name="email"
+                name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="email">E-mail</FormLabel>
+                    <FormLabel htmlFor="usuario">Nome de usuario</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        id="email"
-                        type="email"
-                        placeholder="exemplo@email.com"
-                      />
+                      <Input {...field} id="usuario" placeholder="Usuario" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
