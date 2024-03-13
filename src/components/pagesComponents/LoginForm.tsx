@@ -22,7 +22,7 @@ import {
   FormMessage,
 } from "../ui/form";
 
-import axios from "axios";
+import { api } from "@/utils/api";
 
 const formSchema = z.object({
   username: z.string().min(4, "Insira um usuario válido"),
@@ -44,10 +44,7 @@ export const LoginForm = () => {
         password: form.getValues("password"),
       };
 
-      const res = await axios.post(
-        "https://localhost:7053/api/v1/auth",
-        formData
-      );
+      const res = await api.post("/auth", formData);
       console.log("Token JWT:", res.data);
     } catch (error) {
       console.error("Erro:", error);
