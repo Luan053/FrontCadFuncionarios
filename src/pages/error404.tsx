@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
 
@@ -14,12 +15,12 @@ export const Error404 = () => {
         <p className="text-slate-500 mt-4 pb-4 border-b-2 text-center">
           Desculpe, a página que você procura não foi encontrada.
         </p>
-        <a className="mt-2" href="/">
+        <Link className="mt-2" to="/">
           <Button className="bg-slate-500 hover:bg-slate-600">
             <ArrowLeftIcon className="mr-2" />
             Voltar para página inicial
           </Button>
-        </a>
+        </Link>
       </div>
     </div>
   );
