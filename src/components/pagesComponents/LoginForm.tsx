@@ -24,6 +24,8 @@ import {
 
 import { api } from "@/utils/api";
 
+import { Route, Routes } from "react-router-dom";
+
 const formSchema = z.object({
   username: z.string().min(4, "Insira um usuario válido"),
   password: z.string().min(6, "Senha muito curta"),
