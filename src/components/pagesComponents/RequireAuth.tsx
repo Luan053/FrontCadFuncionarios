@@ -5,7 +5,7 @@ type Props = {
 };
 
 export const RequireAuth = ({ children }: Props) => {
-  const isAuth = false;
+  const isAuth = true;
 
   if (!isAuth) {
     return <Navigate to="/signin" />;
