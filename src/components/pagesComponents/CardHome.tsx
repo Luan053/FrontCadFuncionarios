@@ -22,10 +22,10 @@ export const CardHome = () => {
           <CardDescription className="text-md">Role</CardDescription>
         </CardHeader>
         <CardContent>
-          <Button className="bg-red-500">
+          <Button className="bg-red-500 hover:bg-red-600">
             <TrashIcon className="h-6 w-6" />
           </Button>
-          <Button className="bg-amber-400 ml-2">
+          <Button className="bg-amber-400 ml-2 hover:bg-amber-500">
             <Pencil1Icon className="h-6 w-6" />
           </Button>
         </CardContent>
