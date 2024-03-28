@@ -29,9 +29,7 @@ export const Home = () => {
         </Button>
       </Header>
       <div className="flex p-4 gap-4 flex-wrap">
-        {Array.from({ length: 6 }).map((_, index) => (
-          <CardHome key={index} />
-        ))}
+        <CardHome />
       </div>
     </div>
   );
