@@ -62,7 +62,7 @@ export const CardHome = () => {
           </div>
           <CardFooter className="w-1/4 flex p-2">
             <img
-              src={`https://localhost:7053/api/v1/employee${employee.photo}`}
+              src={`http://localhost:5074/api/v1/employee/${employee.id}/download`}
               alt={employee.nameEmployee}
               className="w-full h-5/6 rounded-md object-cover"
             />
