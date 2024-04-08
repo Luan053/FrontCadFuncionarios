@@ -11,6 +11,17 @@ import {
 
 import { api } from "@/utils/api";
 import { useEffect, useState } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 type Employee = {
   id: number;
@@ -35,6 +46,19 @@ export const CardHome = () => {
     fetchEmployees();
   }, []);
 
+  const handleDeleteEmployee = async (id: number) => {
+    try {
+      await api.delete(`/employee/${id}/delete`);
+
+      const updatedEmployees = employees.filter(
+        (employee) => employee.id !== id
+      );
+      setEmployees(updatedEmployees);
+    } catch (error) {
+      console.error("Erro ao excluir funcionário:", error);
+    }
+  };
+
   return (
     <>
       {employees.map((employee) => (
@@ -52,9 +76,34 @@ export const CardHome = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Button className="bg-red-500 hover:bg-red-600">
-                <TrashIcon className="h-6 w-6" />
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger>
+                  <Button className="bg-red-500 hover:bg-red-600">
+                    <TrashIcon className="h-6 w-6" />
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Você tem certeza que deseja excluir esse funcionário?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Essa ação não poderá ser desfeita.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={() => {
+                        handleDeleteEmployee(employee.id);
+                      }}
+                      className="bg-red-500 hover:bg-red-600"
+                    >
+                      Excluir
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
               <Button className="bg-amber-400 ml-2 hover:bg-amber-500">
                 <Pencil1Icon className="h-6 w-6" />
               </Button>
