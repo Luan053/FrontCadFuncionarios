@@ -36,7 +36,9 @@ export const CardHome = () => {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await api.get("/employee?pageNumber=0&pageQuantity=5");
+        const response = await api.get(
+          "/employee?pageNumber=0&pageQuantity=10"
+        );
         setEmployees(response.data);
       } catch (error) {
         console.error("Erro ao buscar funcionários:", error);
@@ -64,9 +66,9 @@ export const CardHome = () => {
       {employees.map((employee) => (
         <Card
           key={employee.id}
-          className="flex justify-between w-full max-w-md"
+          className="flex justify-between max-w-[315px] lg:max-w-[460px]"
         >
-          <div className="w-3/4 flex flex-col justify-between">
+          <div className="w-[200px] flex flex-col justify-between">
             <CardHeader>
               <CardTitle className="text-2xl font-bold tracking-tighter">
                 {employee.nameEmployee}
@@ -113,7 +115,7 @@ export const CardHome = () => {
             <img
               src={`http://localhost:5074/api/v1/employee/${employee.id}/download`}
               alt={employee.nameEmployee}
-              className="w-full h-5/6 rounded-md object-cover"
+              className="w-full h-full rounded-md object-cover"
             />
           </CardFooter>
         </Card>
